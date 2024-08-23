@@ -68,6 +68,7 @@ class Player:
 
 	def get_stolen(self):
 		resources = []
+
 		print(f"wood: {self._wood} bricks: {self._brick} ore: {self._ore} sheep: {self._sheep} wheat: {self._wheat}")
 		for card in range(self._wood):
 			resources.append("wood")
