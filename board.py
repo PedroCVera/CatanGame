@@ -143,7 +143,8 @@ class Tile:
 		for vertices in self._vertices_map:
 			if self._vertices_map[vertices] != 'N' and self._vertices_map[vertices] != 'X' :
 				player = self._vertices_map[vertices]
-				player = player.strip('S')
+
+				player = player.strip('SC')
 				players.append(player)
 
 		return players
@@ -218,9 +219,10 @@ reg_board_dict = {
 
 class Board:
 
-	def __init__(self):
-		self.robber_place = (0,0)
+	def __init__(self, type_of_board: str):
+		self.robber_place = (0, 0)
 		self.board = reg_board_dict.copy()
+		self.new_board(type_of_board)
 
 	def translate_to_text(self, board_list, rows):
 		board_text = []
@@ -282,10 +284,10 @@ class Board:
 				print(f"Coordinates: {coordinates} {tile}")
 		# else:
 		# 	return
-		# again = input('generate another board? (y/n): ')
-		# if again == 'y':
-		# 	self.board = reg_board_dict.copy()
-		# 	self.new_board('reg')
+		again = input('generate another board? (y/n): ')
+		if again == 'y':
+			self.board = reg_board_dict.copy()
+			self.new_board(_type)
 		# else:
 		return
 
@@ -425,6 +427,8 @@ class Board:
 
 		if self.check_road_placement(tile_coords, road_coords, first_round, player):
 			self.new_road(tile_coords, road_coords, player)
+			return 1
+		return 0
 
 	def new_city(self, tile_coords: tuple[int,int], vertice_coords: tuple[int,int]):
 		if self.board[tile_coords].place_city(vertice_coords):
@@ -447,7 +451,9 @@ class Board:
 	def place_city(self, tile_coords: tuple[int,int], vertice_coords: tuple[int,int], player_str: str):
 		player = player_str.strip('player')
 		if self.check_city_placement(tile_coords, vertice_coords, player):
-			self.new_city(tile_coords, vertice_coords, player)
+			self.new_city(tile_coords, vertice_coords)
+			return 1
+		return 0
 
 	def move_robber(self, tile_coords: tuple[int,int]):
 		if tile_coords in self.board:
@@ -456,3 +462,7 @@ class Board:
 			self.robber_place = tile_coords
 			return self.board[tile_coords].get_players()
 		return 0
+
+	def get_board(self):
+		for coordinates, tile in self.board.items():
+			print(f"Coordinates: {coordinates} {tile}")

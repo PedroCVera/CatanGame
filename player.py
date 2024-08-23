@@ -1,7 +1,7 @@
 import random
 
 class Player:
-	def __init__(self):
+	def __init__(self, number: int):
 		self._wood = 0
 		self._ore = 0
 		self._sheep = 0
@@ -10,12 +10,16 @@ class Player:
 		self._development_cards = []
 		self._cavaliers = 0
 		self._winning_points = 0
+		self._player_number = number
 
 	def get_cavaliers(self):
 		return self._cavaliers
 
 	def add_card(self, card: str):
 		self._development_cards.append(card)
+
+	def get_cards(self):
+		return self._development_cards
 
 	def has_card(self, card: str):
 		if card in self._development_cards:
@@ -25,7 +29,7 @@ class Player:
 	def remove_card(self, card: str):
 		if card in self._development_cards:
 			self._development_cards.remove(card)
-			if card == "cavalier":
+			if card == "Knight":
 				self._cavaliers += 1
 
 	def get_points(self):
@@ -52,7 +56,7 @@ class Player:
 			print(f"Added {res_type} to {current_value + quantity} from {current_value}")
 		else:
 			print(f"Resource type '{res_type}' does not exist.")
-		print(f"wood: {self._wood} bricks: {self._brick} ore: {self._ore} sheep: {self._sheep} wheat: {self._wheat}")
+		print(f"Player:{self._player_number} has wood: {self._wood} bricks: {self._brick} ore: {self._ore} sheep: {self._sheep} wheat: {self._wheat}")
 
 
 	def remove_resources(self, res_type: str, quantity: int):
@@ -136,3 +140,8 @@ class Player:
 	def city_cost(self):
 		self._ore -= 3
 		self._wheat -= 2
+
+	def monopoly(self, res_type: str):
+		buffer = getattr(self, f"_{res_type}")
+		setattr(self, f"_{res_type}", 0)
+		return buffer
