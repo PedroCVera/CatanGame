@@ -9,6 +9,7 @@ class Player:
 		self._wheat = 0
 		self._development_cards = []
 		self._cavaliers = 0
+		self._winning_points = 0
 
 	def get_cavaliers(self):
 		return self._cavaliers
@@ -16,15 +17,26 @@ class Player:
 	def add_card(self, card: str):
 		self._development_cards.append(card)
 
-	def has_cavaliers(self):
-		if "cavalier" in self._development_cards:
+	def has_card(self, card: str):
+		if card in self._development_cards:
 			return True
+		return False
 
 	def remove_card(self, card: str):
 		if card in self._development_cards:
 			self._development_cards.remove(card)
 			if card == "cavalier":
 				self._cavaliers += 1
+
+	def get_points(self):
+		return self._winning_points
+
+	def add_winning_point(self, number: int):
+		self._winning_points += number
+		print(f"Got to {self._winning_points} from {self._winning_points - number}")
+		if self._winning_points >= 10:
+			return 1
+		return 0
 
 	def add_resources(self, res_type: str, quantity: int):
 		if res_type == "debug":
@@ -86,3 +98,41 @@ class Player:
 			setattr(self, f"_{resources[random_int]}", current_value - 1)
 			return resources[random_int]
 		return 0
+
+	def try_settlement(self):
+		if self._wood >= 1 and self._sheep >= 1 and self._brick >= 1 and self._wheat >= 1:
+			return True
+		return False
+
+	def try_card(self):
+		if self._wheat >= 1 and self._sheep >= 1 and self._ore >= 1:
+			return True
+		return False
+
+	def try_road(self):
+		if self._wood >= 1 and self._brick >= 1:
+			return True
+		return False
+
+	def try_city(self):
+		if self._wheat >= 2 and self._ore >= 3:
+			return True
+		return False
+
+	def settlement_cost(self):
+		self._wood -= 1
+		self._sheep -= 1
+		self._wheat -= 1
+		self._brick -= 1
+
+	def road_cost(self):
+		self._wood -= 1
+
+	def card_cost(self):
+		self._ore -= 1
+		self._wheat -= 1
+		self._sheep -= 1
+
+	def city_cost(self):
+		self._ore -= 3
+		self._wheat -= 2

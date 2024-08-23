@@ -7,7 +7,13 @@ player1 = Player()
 player2 = Player()
 player3 = Player()
 player4 = Player()
-player_list = [player1, player2, player3, player4]
+
+player_list = {
+	"player1": player1,
+	"player2": player2,
+	"player3": player3,
+	"player4": player4
+}
 
 resource_convertion_dic = {
 	"w": "wheat",
@@ -17,31 +23,65 @@ resource_convertion_dic = {
 	"s": "sheep"
 }
 
-def new_road(player: str):
-	global board
-
-	new_road = input("Where do you want to put your new road? tileX,tileY X,Y ")
-	coords = new_road.split(' ')
+def separate_coord_input(coords: list[str]):
 	tile_coords = coords[0].split(',')
 	settlement_coords = coords[1].split(',')
 	tile_coords_tuple = (int(tile_coords[0]), int(tile_coords[1]))
 	road_coords_tuple = (int(settlement_coords[0]), int(settlement_coords[1]))
-	print(f"This is tile {tile_coords_tuple} and this is road{road_coords_tuple}")
-	board.place_road(tile_coords_tuple, road_coords_tuple, player)
+	return tile_coords_tuple, road_coords_tuple
 
+def new_city(player: str):
+	global board
+
+	if not player_list[player].try_road():
+		print("Not enough resources!")
+		return
+	new_city_coords = input("Where do you want to put your new road? tileX,tileY X,Y ")
+	coords = new_city_coords.split(' ')
+	if len(coords) != 2:
+		print("wrong coords")
+		new_city(player)
+	tile_coords_tuple, city_coords_tuple = separate_coord_input(coords)
+	board.place_city(tile_coords_tuple, city_coords_tuple, player, True)
+
+def new_road(player: str):
+	global board
+
+	if not player_list[player].try_road():
+		print ("Not enough resources!")
+		return
+	new_road_coords = input("Where do you want to put your new road? tileX,tileY X,Y ")
+	coords = new_road_coords.split(' ')
+	if len(coords) != 2:
+		print("wrong coords")
+		new_road(player)
+	tile_coords_tuple, road_coords_tuple = separate_coord_input(coords)
+	print(f"This is tile {tile_coords_tuple} and this is road{road_coords_tuple}")
+	board.place_road(tile_coords_tuple, road_coords_tuple, player, True)
+
+
+def win(player: str):
+	print(f"PLAYER:{player} WON THE GAME WITH {player_list[player].get_points}!!! WOWOOWOOWOWOWOOWOWOWOWOWOOWOW")
+	exit(1)
 
 def new_settlement(player: str):
 	global board
 
-	new_settlement = input("Where do you want to put your new settlement?<(tileX/tileY)(X/Y) ")
+	if not player_list[player].try_settlement():
+		print ("Not enough resources!")
+		return
+	new_settlement_coords = input("Where do you want to put your new settlement? tileX,tileY X,Y ")
 
-	coord_string = new_settlement.strip('()')
-	coords = coord_string.split(')(')
-	tile_coords = coords[0].split('/')
-	settlement_coords = coords[1].split('/')
-	tile_coords_tuple = (int(tile_coords[0]), int(tile_coords[1]))
-	settlement_coords_tuple = (int(settlement_coords[0]), int(settlement_coords[1]))
-	board.place_settlement(tile_coords_tuple, settlement_coords_tuple, player)
+	coords = new_settlement_coords.split(' ')
+	if len(coords) != 2:
+		print("wrong coords")
+		new_settlement(player)
+
+	tile_coords_tuple, settlement_coords_tuple = separate_coord_input(coords)
+	if board.place_settlement(tile_coords_tuple, settlement_coords_tuple, player, True):
+		if player_list[player].add_winning_point(1):
+			win(player)
+
 
 def play_cav(player_turn, robber: bool):
 	global board
@@ -51,7 +91,7 @@ def play_cav(player_turn, robber: bool):
 	global player4
 
 	action = None
-	if player_turn.has_cavaliers() or robber:
+	if player_turn.has_card("cavalier") or robber:
 		while action is None:
 			action = input("What tile do you want to rob?(TileX/TileY) ")
 			coord_string = action.strip('()')

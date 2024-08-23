@@ -132,8 +132,10 @@ class Tile:
 			if self._vertices_map[vertices] != 'N' and self._vertices_map[vertices] != 'X' :
 				player = self._vertices_map[vertices]
 				player = player.strip('S')
-				if  self._vertices_map[vertices][0] == 'S':
-					player_resource += str(1) + self.get_type()[0] + player + ", "
+				if self._vertices_map[vertices][0] == 'S':
+					player_resource += str(1) + self.get_type()[0] + player + ", " # a settlement gives the player 1 resource while city gives 2
+				if self._vertices_map[vertices][0] == 'C':
+					player_resource += str(2) + self.get_type()[0] + player + ", "
 		return player_resource
 
 	def get_players(self):
@@ -186,6 +188,10 @@ class Tile:
 	def create_road(self, coords: tuple[int,int], player: str):
 		self._roads_map[coords] = player
 		return "success"
+
+	def place_city(self, coords: tuple[int,int]):
+		self._vertices_map[coords] = self._vertices_map[coords].replace('S', 'C')
+
 
 reg_board_dict = {
 	(0, 2): Tile(str(None), 0),
@@ -348,6 +354,8 @@ class Board:
 		player = player_str.strip('player')
 		if self.check_settlement_placement(tile_coords, vertice_coords, first_round, player):
 			self.new_settlement(tile_coords, vertice_coords, player)
+			return 1
+		return 0
 
 	def roll(self):
 		int1 = random.randint(1, 6)
@@ -397,16 +405,17 @@ class Board:
 
 	def check_road_placement(self, tile_coords: tuple[int,int], road_coords: tuple[int,int], first_round: bool, player: str):
 		if tile_coords in self.board and road_coords in tile_road_dict:
-			if self.board[tile_coords].get_road(road_coords) == 'N':
-				return True
-			else:
-				print("There is already a road here")
+			if self.board[tile_coords].get_road(road_coords) != 'N':
+				return False
 			if first_round:
-				if self.check_road_first_round(tile_coords, road_coords, player):
-					return True
+				if not self.check_road_first_round(tile_coords, road_coords, player):
+					print("there isn't any settlement to connect this road to")
+					return False
 			else:
-				if self.check_road_next_to_road(tile_coords, road_coords, player):
-					return True
+				if not self.check_road_next_to_road(tile_coords, road_coords, player):
+					print("there isn't any road to connect this road to")
+					return False
+			return True
 		else:
 			print("invalid position")
 		return False
@@ -414,10 +423,31 @@ class Board:
 	def place_road(self, tile_coords: tuple[int,int], road_coords: tuple[int,int], player_str: str, first_round: bool):
 		player = player_str.strip('player')
 
-		if self.check_road_placement(tile_coords, road_coords, first_round):
+		if self.check_road_placement(tile_coords, road_coords, first_round, player):
 			self.new_road(tile_coords, road_coords, player)
 
+	def new_city(self, tile_coords: tuple[int,int], vertice_coords: tuple[int,int]):
+		if self.board[tile_coords].place_city(vertice_coords):
+			print(f"added city to {tile_coords} in {vertice_coords}")
 
+			for neighbor, neighbor_vertice in zip(vertex_to_offset_place_settlement[vertice_coords],
+												  vertex_to_vertex_place_settlement[vertice_coords]):
+				neighbor_coord = (tile_coords[0] + neighbor[0], tile_coords[1] + neighbor[1])
+				print(neighbor_coord)
+				if neighbor_coord in self.board:
+					if self.board[neighbor_coord].place_city(neighbor_vertice):
+						print(f"added city to {neighbor_coord} in {neighbor_vertice}")
+
+	def check_city_placement(self, tile_coords: tuple[int,int], vertice_coords: tuple[int,int], player_str: str):
+		if tile_coords in self.board and vertice_coords in tile_vertices_dict:
+			if self.board[tile_coords].get_vertice(vertice_coords) == player_str:
+				return True
+		return False
+
+	def place_city(self, tile_coords: tuple[int,int], vertice_coords: tuple[int,int], player_str: str):
+		player = player_str.strip('player')
+		if self.check_city_placement(tile_coords, vertice_coords, player):
+			self.new_city(tile_coords, vertice_coords, player)
 
 	def move_robber(self, tile_coords: tuple[int,int]):
 		if tile_coords in self.board:
