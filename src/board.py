@@ -10,6 +10,27 @@ neighbor_offsets = [
 	(1, 1),  # down-right
 ]
 
+resource_to_port = { # each port and what it trades
+	"3a": [(2, 0), (4, 4), (4, 6), (0, 6)],
+	"2s": [(3, 1)],
+	"2b": [(3, 3)],
+	"2W": [(1, 7)],
+	"2w": [(0, 4)],
+	"2o": [(1, 1)]
+}
+
+hex_to_vertice_ports = { # hexes where ports are followed by which vertices can interact with them
+	(2, 0): [(1, -1), (1, 1)],
+	(3, 1): [(1, 1), (0, 1)],
+	(4, 4): [(1, 1), (0, 1)],
+	(4, 6): [(0, 1), (-1, 1)],
+	(3, 3): [(-1, 1), (-1, -1)],
+	(1, 7): [(-1, 1), (-1, -1)],
+	(0, 6): [(-1, -1), (0, -1)],
+	(0, 4): [(0, -1), (1, -1)],
+	(1, 1): [(0, -1), (1, -1)],
+}
+
 
 vertex_to_offset_place_settlement = {  # clockwise its the offset needed to calculate the neighbors
 	(1, 1): [(0, -2), (1, -1)],  # top-right vertex
@@ -457,12 +478,24 @@ class Board:
 
 	def move_robber(self, tile_coords: tuple[int,int]):
 		if tile_coords in self.board:
-			self.board[self.robber_place].remove_robber()
-			self.board[tile_coords].set_robber()
-			self.robber_place = tile_coords
-			return self.board[tile_coords].get_players()
+			if tile_coords != self.robber_place:
+				self.board[self.robber_place].remove_robber()
+				self.board[tile_coords].set_robber()
+				self.robber_place = tile_coords
+				return self.board[tile_coords].get_players()
 		return 0
 
 	def get_board(self):
 		for coordinates, tile in self.board.items():
 			print(f"Coordinates: {coordinates} {tile}")
+
+	def has_port(self, player_str: str, trade_type: str):
+		player = player_str.strip('player')
+		if trade_type in resource_to_port:
+			for tile in resource_to_port[trade_type]:
+				for vertice in hex_to_vertice_ports[tile]:
+					buffer = self.board[tile].get_vertice(vertice)
+					if player in buffer:
+						return True
+
+		return False

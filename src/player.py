@@ -1,5 +1,13 @@
 import random
 
+resource_convertion_dic = {
+	"w": "wheat",
+	"W": "wood",
+	"b": "brick",
+	"o": "ore",
+	"s": "sheep"
+}
+
 class Player:
 	def __init__(self, number: int):
 		self._wood = 0
@@ -8,12 +16,12 @@ class Player:
 		self._brick = 0
 		self._wheat = 0
 		self._development_cards = []
-		self._cavaliers = 0
+		self._army = 0
 		self._winning_points = 0
 		self._player_number = number
 
-	def get_cavaliers(self):
-		return self._cavaliers
+	def get_army(self):
+		return self._army
 
 	def add_card(self, card: str):
 		self._development_cards.append(card)
@@ -22,7 +30,14 @@ class Player:
 		return self._development_cards
 
 	def has_card(self, card: str):
+		print(f"{card} ")
 		if card in self._development_cards:
+			return True
+		return False
+
+	def has_resource(self, resource: str, number: int):
+		current_value = getattr(self, f"_{resource}")
+		if current_value >= number:
 			return True
 		return False
 
@@ -30,10 +45,13 @@ class Player:
 		if card in self._development_cards:
 			self._development_cards.remove(card)
 			if card == "Knight":
-				self._cavaliers += 1
+				self._army += 1
 
 	def get_points(self):
 		return self._winning_points
+
+	def remove_winning_points(self, number: int):
+		self._winning_points -= number
 
 	def add_winning_point(self, number: int):
 		self._winning_points += number
@@ -65,6 +83,9 @@ class Player:
 			setattr(self, f"_{res_type}", current_value - quantity)
 		else:
 			print(f"Resource type '{res_type}' does not exist.")
+
+	def print_resources(self):
+		print(f"Player: {self._player_number} has Wood:{self._wood}, Sheep:{self._sheep}, Wheat:{self._wheat}, Brick:{self._brick}, Ore:{self._ore}")
 
 	def get_resources(self):
 		resources = 0
@@ -145,3 +166,21 @@ class Player:
 		buffer = getattr(self, f"_{res_type}")
 		setattr(self, f"_{res_type}", 0)
 		return buffer
+
+	def discard_half(self):
+		buffer = self.get_resources()
+		buffer /= 2
+		discarded = 0
+		while discarded < buffer:
+			print(f"Player: {self._player_number} has Wood:{self._wood}, Sheep:{self._sheep}, Wheat:{self._wheat}, Brick:{self._brick}, Ore:{self._ore}")
+			resource = input("What do you want to give? wood(W) wheat(w) ore(o) bricks(b) sheep(s)?")
+			if resource in resource_convertion_dic:
+				if self.has_resource(resource_convertion_dic[resource], 1):
+					self.remove_resources(resource_convertion_dic[resource], 1)
+					discarded += 1
+				else:
+					print("You don't have that resource")
+			else:
+				print("Not a valid input")
+
+
