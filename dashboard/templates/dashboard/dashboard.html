@@ -1,34 +1,29 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'dashboard/css/styles.css' %}">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/dashboard_stylesheet.css' %}">
 </head>
 <body>
-    <header>
-        <h1>Welcome to Your Dashboard</h1>
-         {% if user.is_authenticated %}
-            <p>Logged in as: {{ user.username }}</p>
-        {% else %}
-            <p>You are not logged in.</p>
-        {% endif %}
-        <nav>
-            <ul>
-                <li><a href="{% url 'logout' %}">Logout</a></li>
-                <li><a href="{% url 'login' %}">Start login</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <h2>Dashboard</h2>
-        <p>Here you can prepare to start your game.</p>
-        <!-- Additional content and links to game-related functionality -->
-    </main>
-    <footer>
-        <p>&copy; 2024 Catan Game. All rights reserved.</p>
-    </footer>
+<div class="container">
+    <div class="card card-dashboard mx-auto text-center bg-dark mt-5">
+
+        <div class="card-body">
+            <h3 class="card-header text-white">Dashboard</h3>
+            <p class="text-white mb-4">Welcome to the game dashboard. Here you can join a game or view other options.</p>
+
+            <!-- Join Game Button -->
+            <a href="{% url 'game' %}" class="btn btn-outline-success btn-lg">Join Game</a>
+        </div>
+    </div>
+</div>
 </body>
 </html>

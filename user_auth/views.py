@@ -27,10 +27,6 @@ def login_view(request):
             return render(request, 'user_auth/login.html', {'error': 'Invalid credentials'})
     return render(request, 'user_auth/login.html')
 
-@login_required
-def home_view(request):
-    return render(request, "user_auth/home.html")
-
 def logout_view(request):
     logout(request)
     return redirect('login')

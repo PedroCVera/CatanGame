@@ -1,17 +1,47 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/login_stylesheet.css' %}">
+
 </head>
 <body>
-    <h2>Login</h2>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <button type="submit">Login</button>
-    </form>
-    <p>Don't have an account? <a href="{% url 'register' %}">Register here</a>.</p>
+<div class="container">
+    <div class="card card-login mx-auto text-center bg-dark mt-5">
+
+        <div class="card-body">
+            <h3 class="card-header text-white">Login</h3>
+            <form method="post">
+                {% csrf_token %}
+                <div class="input-group form-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                    </div>
+                    <input type="text" name="username" class="form-control" placeholder="Username">
+                </div>
+
+                <div class="input-group form-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-key"></i></span>
+                    </div>
+                    <input type="password" name="password" class="form-control" placeholder="Password">
+                </div>
+
+                <div class="form-group">
+                    <a href="{% url 'register' %}" class="btn btn-outline-danger float-left login_btn">Register</a>
+                    <input type="submit" value="Login" class="btn btn-outline-danger float-right login_btn">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>

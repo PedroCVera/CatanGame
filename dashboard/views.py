@@ -7,3 +7,6 @@ def dashboard(request):
     # Render the dashboard page where users can prepare to start a game
     return render(request, 'dashboard/dashboard.html')
 
+def game(request):
+    return redirect('game')
+
