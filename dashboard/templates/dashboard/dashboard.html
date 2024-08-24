@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'dashboard/css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Welcome to Your Dashboard</h1>
+         {% if user.is_authenticated %}
+            <p>Logged in as: {{ user.username }}</p>
+        {% else %}
+            <p>You are not logged in.</p>
+        {% endif %}
+        <nav>
+            <ul>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+                <li><a href="{% url 'login' %}">Start login</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Dashboard</h2>
+        <p>Here you can prepare to start your game.</p>
+        <!-- Additional content and links to game-related functionality -->
+    </main>
+    <footer>
+        <p>&copy; 2024 Catan Game. All rights reserved.</p>
+    </footer>
+</body>
+</html>
