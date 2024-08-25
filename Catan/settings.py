@@ -60,7 +60,7 @@ LOGIN_REDIRECT_URL = 'dashboard/'
 LOGIN_URL = 'login/'
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'my_css_static')]
 
 TEMPLATES = [
     {
