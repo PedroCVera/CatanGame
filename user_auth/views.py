@@ -18,6 +18,9 @@ def login_view(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
+        if not username or not password:
+            return render(request, 'user_auth/login.html', {'error': 'Please fill in all fields'})
+
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
