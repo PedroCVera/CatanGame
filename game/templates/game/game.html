@@ -108,12 +108,18 @@ I've tweaked it a bit from then and added the game pieces that could be used to 
       <div class='harbor three-one any'>
         <div class='harbor-piece br'></div>
       </div>
+      <div class='target house tl'></div>
     </li>
-    <li class='hex water'></li>
+    <li class='hex water'>
+      <div class='target house tl'></div>
+    </li>
+
+
     <li class='hex water'>
       <div class='harbor two-one wood'>
         <div class='harbor-piece bl'></div>
       </div>
+      <div class='target house tl'></div>
     </li>
   </ol>
 
@@ -124,48 +130,82 @@ I've tweaked it a bit from then and added the game pieces that could be used to 
         <div class='harbor-piece br'></div>
       </div>
     </li>
-    <li class='hex wheat'>
+    <li class='hex wheat' id="4-2">
       <div class='number two'></div>
-      <div class='road tr'></div>
-      <div class='road l'></div>
-      <div class='road tl'></div>
+      <div class='target road tr'></div>
+      <div class='target road l'></div>
+      <div class='target road tl'></div>
+      <div class='target house tl'></div>
+      <div class="target house tr"></div>
     </li>
-    <li class='hex wood'>
+    <li class='hex wood' id="4-4">
+      <div class='target road tl'></div>
+      <div class='target road l'></div>
+      <div class='target road tr'></div>
+      <div class='target house tl'></div>
+      <div class="target house tr"></div>
       <div class='number three'></div>
-      <div class='road tl'></div>
-      <div class='road l'></div>
-      <div class='road tr'></div>
     </li>
-    <li class='hex wheat'>
+    <li class='hex wheat' id="4-6">
+      <div class='target road tr'></div>
+      <div class='target road l'></div>
+      <div class='target road tl'></div>
+      <div class='target house tl'></div>
+      <div class="target house tr"></div>
       <div class='number three'></div>
-      <div class='road tl'></div>
-      <div class='road tr'></div>
 
     </li>
-    <li class='hex water'></li>
+    <li class='hex water'>
+      <div class='target road l'></div>
+      <div class='target house tl'></div>
+      <div class="target house tr"></div>
+    </li>
   </ol>
 
   <ol class="even">
     <li class='hex water'></li>
-    <li class='hex coal'>
+    <li class='hex coal' id="3-1">
+      <div class='target road tr'></div>
+      <div class='target road l'></div>
+      <div class='target road tl'></div>
+      <div class='target house tl'></div>
+      <div class="target house tr"></div>
       <div class='number four'></div>
-      <div class='road tr'></div>
     </li>
-    <li class='hex sheep'>
+    <li class='hex sheep' id="3-3">
       <div class='number four'></div>
-      <div class='house tl red'></div>
+      <div class='target road tr'></div>
+      <div class='target road l'></div>
+      <div class='target road tl'></div>
+      <div class='target house tl'></div>
+      <div class="target house tr"></div>
+<!--      <div class="target house r"></div>-->
     </li>
-    <li class='hex wood'>
+    <li class='hex wood' id="3-5">
       <div class='number five'></div>
+      <div class='target road tr'></div>
+      <div class='target road l'></div>
+      <div class='target road tl'></div>
+      <div class='target house tl'></div>
+      <div class="target house tr"></div>
+<!--      <div class="target house r"></div>-->
     </li>
-    <li class='hex sheep'>
+    <li class='hex sheep' id="3-7">
       <div class='number five'></div>
-      <div class='house t blue'></div>
+      <div class='target road tr'></div>
+      <div class='target road l'></div>
+      <div class='target road tl'></div>
+      <div class='target house tl'></div>
+      <div class="target house tr"></div>
+<!--      <div class="target house r"></div>-->
     </li>
     <li class='hex water'>
       <div class='harbor two-one brick'>
         <div class='harbor-piece l'></div>
       </div>
+      <div class='target road l'></div>
+      <div class='target house tl'></div>
+      <div class="target house tr"></div>
     </li>
   </ol>
 
@@ -173,52 +213,109 @@ I've tweaked it a bit from then and added the game pieces that could be used to 
     <li class='hex water'>
       <div class='harbor two-one sheep'>
         <div class='harbor-piece r'></div>
+
       </div>
+
     </li>
-    <li class='hex sheep'>
+    <li class='hex sheep' id="2-0">
       <div class='number six'></div>
+      <div class='target road tr'></div>
+      <div class='target road l'></div>
+      <div class='target road tl'></div>
+      <div class='target house tl'></div>
+      <div class="target house tr"></div>
+<!--      <div class="target house r"></div>-->
     </li>
-    <li class='hex wheat'>
+    <li class='hex wheat' id="2-2">
       <div class='number six'></div>
+      <div class='target road tr'></div>
+      <div class='target road l'></div>
+      <div class='target road tl'></div>
+      <div class='target house tl'></div>
+      <div class="target house tr"></div>
+<!--      <div class="target house r"></div>-->
     </li>
-    <li class='hex wood'>
+    <li class='hex wood' id="2-4">
       <div class='number eight robber'></div>
+      <div class='target road tr'></div>
+      <div class='target road l'></div>
+      <div class='target road tl'></div>
+      <div class='target house tl'></div>
+      <div class="target house tr"></div>
+<!--      <div class="target house r"></div>-->
     </li>
-    <li class='hex brick'>
+    <li class='hex brick' id="2-6">
       <div class='number eight'></div>
+      <div class='target road tr'></div>
+      <div class='target road l'></div>
+      <div class='target road tl'></div>
+      <div class='target house tl'></div>
+      <div class="target house tr"></div>
+<!--      <div class="target house r"></div>-->
     </li>
-    <li class='hex brick'>
+    <li class='hex brick' id="2-8">
       <div class='number nine'></div>
+      <div class='target road tr'></div>
+      <div class='target road l'></div>
+      <div class='target road tl'></div>
+      <div class='target house tl'></div>
+      <div class="target house tr"></div>
+<!--      <div class="target house r"></div>-->
     </li>
     <li class='hex water'>
-
+      <div class='target road l'></div>
+      <div class='target house tl'></div>
+      <div class="target house tr"></div>
     </li>
   </ol>
   <ol class="even">
     <li class='hex water'></li>
-    <li class='hex coal'>
+    <li class='hex coal' id="1-1">
       <!-- ROAD TARGETS -->
-      <div class='road target tr'></div>
-      <div class='road target l'></div>
-      <div class='road target tl'></div>
+      <div class='target road tr'></div>
+      <div class='target road l'></div>
+      <div class='target road tl'></div>
+      <div class='target house tl'></div>
+      <div class="target house tr"></div>
+<!--      <div class="target house r"></div>-->
       <div class='number nine'></div>
     </li>
-    <li class='hex brick'>
+    <li class='hex brick' id="1-3">
       <div class='number ten'></div>
+      <div class='target road tr'></div>
+      <div class='target road l'></div>
+      <div class='target road tl'></div>
+      <div class='target house tl'></div>
+      <div class="target house tr"></div>
+<!--      <div class="target house r"></div>-->
     </li>
-    <li class='hex wood'>
+    <li class='hex wood' id="1-5">
       <!-- HOUSE TARGETS -->
-      <div class='house t target'></div>
+      <div class='target road tr'></div>
+      <div class='target road l'></div>
+      <div class='target road tl'></div>
+      <div class='target house tl'></div>
+      <div class="target house tr"></div>
+<!--      <div class="target house r"></div>-->
       <div class='number ten'></div>
     </li>
-    <li class='hex sheep'>
+    <li class='hex sheep' id="1-7">
       <div class='number eleven'></div>
-      <div class='city t blue'></div>
+      <div class='target road tr'></div>
+      <div class='target road l'></div>
+      <div class='target road tl'></div>
+      <div class='target house tl'></div>
+      <div class="target house tr"></div>
+<!--      <div class="target house r"></div>-->
     </li>
     <li class='hex water'>
       <div class='harbor two-one wheat'>
         <div class='harbor-piece l'></div>
       </div>
+      <div class='target road l'></div>
+      <div class='target road tl'></div>
+      <div class='target house tl'></div>
+      <div class="target house tr"></div>
     </li>
   </ol>
   <ol class="odd">
@@ -227,29 +324,67 @@ I've tweaked it a bit from then and added the game pieces that could be used to 
       <div class='harbor three-one any'>
         <div class='harbor-piece tr'></div>
       </div>
+      <div class='target road tr'></div>
     </li>
-    <li class='hex sand'></li>
-    <li class='hex coal'>
+    <li class='hex sand' id="0-2">
+      <div class='target road tr'></div>
+      <div class='target road l'></div>
+      <div class='target road tl'></div>
+      <div class='target house tl'></div>
+      <div class="target house tr"></div>
+    </li>
+    <li class='hex coal' id="0-4">
       <div class='number twelve'></div>
+      <div class='target road tr'></div>
+      <div class='target road l'></div>
+      <div class='target road tl'></div>
+      <div class='target house tl'></div>
+      <div class="target house tr"></div>
+<!--      <div class="target house r"></div>-->
     </li>
-    <li class='hex wheat'>
+    <li class='hex wheat' id="0-6">
       <div class='number eight'></div>
+      <div class='target road tr'></div>
+      <div class='target road l'></div>
+      <div class='target road tl'></div>
+      <div class='target house tl'></div>
+      <div class="target house tr"></div>
+<!--      <div class="target house r"></div>-->
     </li>
-    <li class='hex water'><div class='city tl green'></div></li>
+    <li class='hex water'>
+      <div class='target road l'></div>
+      <div class='target road tl'></div>
+      <div class='target house tl'></div>
+      <div class="target house tr"></div>
   </ol>
+
   <ol class="even">
     <li class='hex spacer'></li>
-    <li class='hex water'></li>
+    <li class='hex water'>
+            <div class='target road tr'></div>
+
+    </li>
     <li class='hex water'>
       <div class='harbor three-one any'>
         <div class='harbor-piece tr'></div>
       </div>
+            <div class='target road tr'></div>
+      <div class='target road tl'></div>
+
+      <div class="target house tr"></div>
+
     </li>
-    <li class='hex water'></li>
+    <li class='hex water'>
+            <div class='target road tr'></div>
+      <div class='target road tl'></div>
+      <div class="target house tr"></div>
+    </li>
     <li class='hex water'>
       <div class='harbor two-one ore'>
         <div class='harbor-piece tl'></div>
       </div>
+      <div class='target road tl'></div>
+      <div class="target house tr"></div>
     </li>
   </ol>
 </div>

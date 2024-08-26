@@ -121,7 +121,7 @@ ol.odd {
 }
 
 .road.target:hover {
-  background-color: yellow;
+  background-color: #a2e826;
 }
 
 
@@ -356,15 +356,14 @@ ol.odd {
 
 }
 
-
-.hex .house.t {
-  top: 55px;
-  left: 100px;
-}
-
 .hex .house.tl {
   top: -15px;
-  left: 65px;
+  left: -12px;
+}
+
+.hex .house.tr {
+  top: -15px;
+  left: 67px;
 
 }
 /* end  houses */
@@ -506,8 +505,8 @@ ol.odd {
 .red { background: linear-gradient(to bottom, #ff3019 0%,#cf0404 100%); }
 .white { background: linear-gradient(to bottom, #fcfff4 0%,#dfe5d7 40%,#b3bead 100%); }
 .blue { background: linear-gradient(to bottom, #49c0f0 0%,#2cafe3 100%); }
-.yellow { background: linear-gradient(to bottom, yellow 0%, yellow 100%); }
-.green { background: linear-gradient(to bottom, green 0%, green 100%); }
+.yellow { background: linear-gradient(to bottom, #f4f424 0%, yellow 100%); }
+.green { background: linear-gradient(to bottom, #47ba47 0%, green 100%); }
 
 .action-prompt {
   position: absolute;

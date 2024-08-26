@@ -111,7 +111,7 @@ ol.odd {
 }
 
 .road.target:hover {
-  background-color: yellow;
+  background-color: #a2e826;
 }
 
 .road.l {
@@ -398,14 +398,14 @@ ol.odd {
   display: none;
 }
 
-.hex .house.t {
-  top: 55px;
-  left: 100px;
-}
-
 .hex .house.tl {
   top: -15px;
-  left: 65px;
+  left: -12px;
+}
+
+.hex .house.tr {
+  top: -15px;
+  left: 67px;
 }
 
 /* end  houses */
