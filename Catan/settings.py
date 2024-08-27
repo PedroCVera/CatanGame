@@ -53,11 +53,15 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+SESSION_COOKIE_AGE = 3600  # Session expires in 1 hour (3600 seconds)
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_SAVE_EVERY_REQUEST = True
+
 ROOT_URLCONF = 'Catan.urls'
 
 LOGIN_REDIRECT_URL = 'dashboard/'
 
-LOGIN_URL = 'login/'
+LOGIN_URL = '/login/'
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'my_css_static')]
