@@ -9,7 +9,7 @@ resource_convertion_dic = {
 }
 
 class Player:
-	def __init__(self, number: int):
+	def __init__(self, pid):
 		self._wood = 0
 		self._ore = 0
 		self._sheep = 0
@@ -18,7 +18,7 @@ class Player:
 		self._development_cards = []
 		self._army = 0
 		self._winning_points = 0
-		self._player_number = number
+		self._player_id = pid
 
 	def get_army(self):
 		return self._army
@@ -74,7 +74,7 @@ class Player:
 			print(f"Added {res_type} to {current_value + quantity} from {current_value}")
 		else:
 			print(f"Resource type '{res_type}' does not exist.")
-		print(f"Player:{self._player_number} has wood: {self._wood} bricks: {self._brick} ore: {self._ore} sheep: {self._sheep} wheat: {self._wheat}")
+		print(f"Player:{self._player_id} has wood: {self._wood} bricks: {self._brick} ore: {self._ore} sheep: {self._sheep} wheat: {self._wheat}")
 
 
 	def remove_resources(self, res_type: str, quantity: int):
@@ -85,7 +85,7 @@ class Player:
 			print(f"Resource type '{res_type}' does not exist.")
 
 	def print_resources(self):
-		print(f"Player: {self._player_number} has Wood:{self._wood}, Sheep:{self._sheep}, Wheat:{self._wheat}, Brick:{self._brick}, Ore:{self._ore}")
+		print(f"Player: {self._player_id} has Wood:{self._wood}, Sheep:{self._sheep}, Wheat:{self._wheat}, Brick:{self._brick}, Ore:{self._ore}")
 
 	def get_resources(self):
 		resources = 0
@@ -152,6 +152,7 @@ class Player:
 
 	def road_cost(self):
 		self._wood -= 1
+		self._brick -= 1
 
 	def card_cost(self):
 		self._ore -= 1
@@ -172,7 +173,7 @@ class Player:
 		buffer /= 2
 		discarded = 0
 		while discarded < buffer:
-			print(f"Player: {self._player_number} has Wood:{self._wood}, Sheep:{self._sheep}, Wheat:{self._wheat}, Brick:{self._brick}, Ore:{self._ore}")
+			print(f"Player: {self._player_id} has Wood:{self._wood}, Sheep:{self._sheep}, Wheat:{self._wheat}, Brick:{self._brick}, Ore:{self._ore}")
 			resource = input("What do you want to give? wood(W) wheat(w) ore(o) bricks(b) sheep(s)?")
 			if resource in resource_convertion_dic:
 				if self.has_resource(resource_convertion_dic[resource], 1):

@@ -1,6 +1,5 @@
-
-from board import *
-from player import Player
+from game.game_src.board import *
+from game.game_src.player import Player
 import random
 
 resource_convertion_dic = {
@@ -30,10 +29,11 @@ def win(player: str):
 	exit(1)
 
 class Game:
-	def __init__(self, player_n: int):
+	def __init__(self, player_n: int, player1):
 		if player_n > 6 or player_n < 2:
 			print("Player number must be between 2-6")
 			exit(1)
+		self._player1_id = player1
 		self._player_number = player_n
 		self._player_list = []
 		self._player_dict = {}
@@ -68,10 +68,16 @@ class Game:
 			random.shuffle(self._development_cards)
 		else:
 			self._board = Board("exp")
+
+
 		self._current_player = "player1"
 		print("I was here")
-		self.round_zero()
+		# self.round_zero()
 		print("I was here too")
+
+	def get_board(self):
+		print(self._board.get_board())
+		return self._board.get_board()
 
 	def round_zero(self):
 		for entry in self._player_list:
@@ -90,7 +96,7 @@ class Game:
 		while 1:
 			self.winning_points()
 			self._current_player = self._player_list[index]
-			self._board.get_board()
+			self._board.print_board()
 			self._current_player = self._player_list[index]
 			self.round_first_part()
 			self.round_second_part()
@@ -102,8 +108,8 @@ class Game:
 		for keys in self._player_dict:
 			print(f"Player: {keys} has {self._player_dict[keys].get_points()} points")
 
-	def round_first_part(self):
-		action = input(f"Do you want to roll(R) or to play knights(C)({self._player_dict[self._current_player].has_card("knight")}) Exit(E)?")
+	def round_first_part(self, action):
+		# action = input(f"Do you want to roll(R) or to play knights(C)) Exit(E)?")
 		if action == "R":
 			self.make_roll()
 		elif action == "E":
@@ -114,10 +120,10 @@ class Game:
 		else:
 			self.round_first_part()
 
-	def round_second_part(self):
+	def round_second_part(self, action):
 		while True:
-			action = input(f"What action do you want to do? Build a: "
-			"Road(R), Settlement(S), City(C), Development_card(D) or Pass(P), Trade(T) Debug Resources/cav(H)?")
+			# action = input(f"What action do you want to do? Build a: "
+			# "Road(R), Settlement(S), City(C), Development_card(D) or Pass(P), Trade(T) Debug Resources/cav(H)?")
 			if action == "R":
 				self.new_road(False, False)
 			elif action == "S":
@@ -135,10 +141,10 @@ class Game:
 			elif action == "P":
 				return
 
-	def trade(self):
-		trade_offer = input("Whats the trade offer? Ports: 3 for anything(3a) 2 for 1 wood(2W) 2 for 1 wheat(2w) 2 for 1 ore(2o) 2 for 1 brick"
-								"(2b) 2 for 1 sheep(2s) or 4 for anything?(4a)")
-		given_resources = input("What do you want to give? wood(W) wheat(w) ore(o) bricks(b) sheep(s)?")
+	def trade(self, trade_offer, given_resources):
+		# trade_offer = input("Whats the trade offer? Ports: 3 for anything(3a) 2 for 1 wood(2W) 2 for 1 wheat(2w) 2 for 1 ore(2o) 2 for 1 brick"
+		# 						"(2b) 2 for 1 sheep(2s) or 4 for anything?(4a)")
+		# given_resources = input("What do you want to give? wood(W) wheat(w) ore(o) bricks(b) sheep(s)?")
 
 		if (given_resources not in resource_convertion_dic or trade_offer not in possible_trades_list or
 				not self._player_dict[self._current_player].has_resource(resource_convertion_dic[given_resources], int(trade_offer[0]))):
@@ -150,7 +156,7 @@ class Game:
 				if wanted_resource in resource_convertion_dic:
 					self._player_dict[self._current_player].add_resources(resource_convertion_dic[wanted_resource], 1)
 				else:
-					print("Choose a validresource!")
+					print("Choose a valid resource!")
 					self.trade()
 			else:
 				self._player_dict[self._current_player].add_resources(resource_convertion_dic[trade_offer[1]], 1)
@@ -158,11 +164,11 @@ class Game:
 			self._player_dict[self._current_player].print_resources()
 
 
-	def choose_card_action(self):
+	def choose_card_action(self, action):
 		cards = self._player_dict[self._current_player].get_cards()
 		while "VP" in cards:
 			cards.remove("VP")
-		action = input(f"What do you want to do? Buy a development card(B) or play one of these? [{cards}] <Name>")
+		# action = input(f"What do you want to do? Buy a development card(B) or play one of these? [{cards}] <Name>")
 		if action == "B":
 			self.new_card()
 		if action in development_cards_list:
@@ -184,8 +190,8 @@ class Game:
 		else:
 			print("You don't have that card")
 
-	def monopoly_card(self):
-		resource = input("What resource do you want to steal? W: wood, w: wheat, b: brick, o:ore, s: sheep")
+	def monopoly_card(self, resource):
+		# resource = input("What resource do you want to steal? W: wood, w: wheat, b: brick, o:ore, s: sheep")
 		if resource not in resource_convertion_dic:
 			print("You need to choose a valid resource")
 			self.monopoly_card()
@@ -195,9 +201,9 @@ class Game:
 				buffer = self._player_dict[entry].monopoly(resource)
 				self._player_dict[self._current_player].add_resources(resource, buffer)
 
-	def resource_card(self):
-		resource1 = input("what resources do you want? W: wood, w: wheat, b: brick, o:ore, s: sheep")
-		resource2 = input("what resources do you want? W: wood, w: wheat, b: brick, o:ore, s: sheep")
+	def resource_card(self, resource1, resource2):
+		# resource1 = input("what resources do you want? W: wood, w: wheat, b: brick, o:ore, s: sheep")
+		# resource2 = input("what resources do you want? W: wood, w: wheat, b: brick, o:ore, s: sheep")
 
 		if resource1 not in resource_convertion_dic or resource2 not in resource_convertion_dic:
 			print("You need to choose valid resources")
@@ -291,12 +297,12 @@ class Game:
 			if self._player_dict[player].get_resources() > 7:
 				self._player_dict[player].discard_half()
 
-	def new_road(self, first_round: bool, development_card: bool):
+	def new_road(self, first_round: bool, development_card: bool, new_road_coords):
 
 		if not self._player_dict[self._current_player].try_road() and not first_round and not development_card:
 			print("Not enough resources!")
 			return
-		new_road_coords = input("Where do you want to put your new road? tileX,tileY X,Y ")
+		# new_road_coords = input("Where do you want to put your new road? tileX,tileY X,Y ")
 		coords = new_road_coords.split(' ')
 		if len(coords) != 2:
 			print("wrong coords")
@@ -312,14 +318,16 @@ class Game:
 		if not self._board.place_road(tile_coords_tuple, road_coords_tuple, self._current_player, first_round) and (first_round or development_card):
 			self.new_road(first_round, development_card)
 			return
+		if not first_round and not development_card:
+			self._player_dict[self._current_player].road_cost()
 
 
-	def new_settlement(self, first_round: bool):
+	def new_settlement(self, first_round: bool, new_settlement_coords):
 
 		if not self._player_dict[self._current_player].try_settlement() and not first_round:
 			print("Not enough resources!")
 			return
-		new_settlement_coords = input("Where do you want to put your new settlement? tileX,tileY X,Y ")
+		# new_settlement_coords = input("Where do you want to put your new settlement? tileX,tileY X,Y ")
 		coords = new_settlement_coords.split(' ')
 		if len(coords) != 2:
 			print("wrong coords")
@@ -338,13 +346,15 @@ class Game:
 		elif not self._board.place_settlement(tile_coords_tuple, settlement_coords_tuple, self._current_player, first_round) and first_round:
 			self.new_settlement(first_round)
 			return
+		if not first_round:
+			self._player_dict[self._current_player].settlement_cost()
 
-	def new_city(self):
+	def new_city(self, new_city_coords):
 
 		if not self._player_dict[self._current_player].try_city():
 			print("Not enough resources!")
 			return
-		new_city_coords = input("Where do you want to put your new road? tileX,tileY X,Y ")
+		# new_city_coords = input("Where do you want to put your new road? tileX,tileY X,Y ")
 		coords = new_city_coords.split(' ')
 		if len(coords) != 2:
 			print("wrong coords")
@@ -356,9 +366,9 @@ class Game:
 			self.new_city()
 			return
 
-		if self._board.place_settlement(tile_coords_tuple, city_coords_tuple, self._current_player):
-			if self._player_dict[self._current_player].add_winning_point(2):
+		if self._board.place_city(tile_coords_tuple, city_coords_tuple, self._current_player):
+			if self._player_dict[self._current_player].add_winning_point(1):
 				win(self._current_player)
+		self._player_dict[self._current_player].city_cost()
 
 
-game = Game(2)

@@ -71,18 +71,18 @@ I've tweaked it a bit from then and added the game pieces that could be used to 
   <ol class="even">
     <li class='hex spacer'></li>
     <li class='hex water'></li>
-    <li class='hex water'>
+    <li class='hex water' id="5-3">
       <div class='harbor three-one any'>
         <div class='harbor-piece br'></div>
       </div>
       <div class='target house tl'></div>
     </li>
-    <li class='hex water'>
+    <li class='hex water' id="5-5">
       <div class='target house tl'></div>
     </li>
 
 
-    <li class='hex water'>
+    <li class='hex water' id="5-7"">
       <div class='harbor two-one wood'>
         <div class='harbor-piece bl'></div>
       </div>
@@ -122,7 +122,7 @@ I've tweaked it a bit from then and added the game pieces that could be used to 
       <div class='number three'></div>
 
     </li>
-    <li class='hex water'>
+    <li class='hex water' id="4-8">
       <div class='target road l'></div>
       <div class='target house tl'></div>
       <div class="target house tr"></div>
@@ -166,7 +166,7 @@ I've tweaked it a bit from then and added the game pieces that could be used to 
       <div class="target house tr"></div>
 <!--      <div class="target house r"></div>-->
     </li>
-    <li class='hex water'>
+    <li class='hex water' id="3-9">
       <div class='harbor two-one brick'>
         <div class='harbor-piece l'></div>
       </div>
@@ -360,29 +360,33 @@ I've tweaked it a bit from then and added the game pieces that could be used to 
   <div class="roster">
     <ul class="player-roster-list">
 
-      <li class="player-roster red">
+      <li class="player-roster red" id="Your-hand">
         Your hand
         <div class='points'>5</div>
 
         <div class='roster-card-bank'>
-          <ul class='roster-card-stack'>
+          <ul class='roster-card-stack' id="your-hand-sheep">
             <li class='roster-card sheep'></li>
             <li class='roster-card sheep'></li>
             <li class='roster-card sheep'></li>
           </ul>
 
-          <ul class='roster-card-stack'>
+          <ul class='roster-card-stack' id="your-hand-wood">
             <li class='roster-card wood'></li>
             <li class='roster-card wood'></li>
             <li class='roster-card wood'></li>
           </ul>
 
-          <ul class='roster-card-stack'>
+          <ul class='roster-card-stack' id="your-hand-brick">
             <li class='roster-card brick'></li>
             <li class='roster-card brick'></li>
           </ul>
 
-          <ul class='roster-card-stack'>
+          <ul class="roster-card-stack" id="your-hand-wheat">
+            <li class='roster-card wheat'></li>
+          </ul>
+
+          <ul class='roster-card-stack' id="your-hand-ore">
             <li class='roster-card ore'></li>
             <li class='roster-card ore'></li>
           </ul>
@@ -413,6 +417,9 @@ I've tweaked it a bit from then and added the game pieces that could be used to 
         <div class='points'>6</div>
       </li>
       </ul>
+
+
+    <script src="{% static 'js/game.js' %}"></script>
 
 </body>
 </html>

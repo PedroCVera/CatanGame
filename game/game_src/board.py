@@ -152,7 +152,7 @@ class Tile:
 		for vertices in self._vertices_map:
 			if self._vertices_map[vertices] != 'N' and self._vertices_map[vertices] != 'X' :
 				player = self._vertices_map[vertices]
-				player = player.strip('S')
+				player = player.strip('SC')
 				if self._vertices_map[vertices][0] == 'S':
 					player_resource += str(1) + self.get_type()[0] + player + ", " # a settlement gives the player 1 resource while city gives 2
 				if self._vertices_map[vertices][0] == 'C':
@@ -305,10 +305,10 @@ class Board:
 				print(f"Coordinates: {coordinates} {tile}")
 		# else:
 		# 	return
-		again = input('generate another board? (y/n): ')
-		if again == 'y':
-			self.board = reg_board_dict.copy()
-			self.new_board(_type)
+		# again = input('generate another board? (y/n): ')
+		# if again == 'y':
+		# 	self.board = reg_board_dict.copy()
+		# 	self.new_board(_type)
 		# else:
 		return
 
@@ -485,9 +485,12 @@ class Board:
 				return self.board[tile_coords].get_players()
 		return 0
 
-	def get_board(self):
+	def print_board(self):
 		for coordinates, tile in self.board.items():
 			print(f"Coordinates: {coordinates} {tile}")
+
+	def get_board(self):
+		return self.board
 
 	def has_port(self, player_str: str, trade_type: str):
 		player = player_str.strip('player')
