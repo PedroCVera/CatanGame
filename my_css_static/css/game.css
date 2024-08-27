@@ -544,6 +544,26 @@ ol.odd {
   background-color: rgb(231, 222, 206);
 }
 
+.wood {
+  background-color: green;
+}
+
+.brick {
+  background-color: darkred;
+}
+
+.wheat {
+  background-color: yellow;
+}
+
+.ore {
+  background-color: grey;
+}
+
+.sheep {
+  background-color: pink;
+}
+
 .clear {
   clear: both;
 }
@@ -561,17 +581,18 @@ ol.odd {
 }
 
 .yellow {
-  background: linear-gradient(to bottom, yellow 0%, yellow 100%);
+  background: linear-gradient(to bottom, #f4f424 0%, yellow 100%);
 }
 
 .green {
-  background: linear-gradient(to bottom, green 0%, green 100%);
+  background: linear-gradient(to bottom, #47ba47 0%, green 100%);
 }
 
 .action-prompt {
+  transform: rotate(-90deg);
   position: absolute;
-  top: 0px;
-  left: 50%;
+  top: 75%;
+  left: 100px;
   margin-left: -200px;
   width: 400px;
   height: 50px;
