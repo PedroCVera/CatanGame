@@ -39,11 +39,34 @@ your_hand_sheep.appendChild(sheep)
 class Game {
     constructor(gameId) {
         this.gameid = gameId;
-        console.log(this.startNewGame())
-        // this.getBoard()
+        this._board = null
+        this.initialize()
     }
 
-    // Function to make an HTTP request to the backend
+    async initialize(){
+        await this.startNewGame()
+        for (let key in this._board) {
+            if (this._board.hasOwnProperty(key)) {
+                const value = this._board[key];
+                const [resource, number] = value.split(' | ');
+
+                const hexElement = document.getElementById(key);
+
+                if (hexElement) {
+                    if (resource === "desert") {
+                        hexElement.className = `hex sand robber`;
+                    } else {
+                        hexElement.className = `hex ${resource}`;
+                    }
+                    const numberElement = hexElement.querySelector('.number');
+                    if (numberElement) {
+                        numberElement.className = `number ${number}`;
+                    }
+                }
+            }
+        }
+        console.log(this._board)
+    }
 
 
     // Example function to get game status
@@ -84,26 +107,6 @@ class Game {
             this._board = data.board;
 
             console.log('Game created:', data);
-        } catch (error) {
-            console.error('Error creating game:', error);
-        }
-    }
-
-    async getBoard() {
-        try{
-            const response = await fetch('/game/get_board/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': this.getCSRFToken()
-                }
-            });
-            if (!response.ok){
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const data = await response.json();
-            this._board = data.board;
-            console.log(this._board);
         } catch (error) {
             console.error('Error creating game:', error);
         }

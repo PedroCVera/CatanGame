@@ -272,7 +272,11 @@ class Board:
 			for j in range(len(board_words[i])):
 				if self.board[board_keys[index]].get_type() == 'desert':
 					self.robber_place = board_keys[index]
+					self.board[board_keys[index]].update_tile_number(0)
+					print("WHY THE FUCK AM I GETTING A NUMBER?!")
 				else:
+					print(self.board[board_keys[index]].get_type())
+					print(type(self.board[board_keys[index]].get_type()))
 					number = random.choice(numbers_list)
 					self.board[board_keys[index]].update_tile_number(number)
 					numbers_list.remove(number)

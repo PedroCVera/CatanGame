@@ -95,7 +95,7 @@ ol.odd {
   background-color: red;
 }
 
-.hex.wood {
+.hex.Wood {
   background-color: green;
 }
 
@@ -219,7 +219,7 @@ ol.odd {
 .harbor.two-one::before { content: "2:1"; transform:rotate(-90deg); top: 5px; left: -20px;}
 .harbor.three-one::before { content: "3:1"; transform:rotate(-90deg); top: 5px; left: -20px;}
 .harbor.any::after { content: "any"; transform:rotate(-90deg)}
-.harbor.wood::after { content: "wood"; transform:rotate(-90deg)}
+.harbor.Wood::after { content: "Wood"; transform:rotate(-90deg)}
 .harbor.ore::after { content: "ore"; transform:rotate(-90deg)}
 .harbor.sheep::after { content: "sheep"; transform:rotate(-90deg)}
 .harbor.brick::after { content: "brick"; transform:rotate(-90deg)}
@@ -499,7 +499,7 @@ ol.odd {
   background-color: rgb(231, 222, 206);
 }
 
-.wood{
+.Wood{
   background-color: green;
 }
 .brick{
