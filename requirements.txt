@@ -1,5 +1,7 @@
 asgiref==3.8.1
 Django==5.1
+docopt==0.6.2
 gunicorn==23.0.0
+num2words==0.5.13
 packaging==24.1
 sqlparse==0.5.1
